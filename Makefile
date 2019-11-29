@@ -25,3 +25,5 @@ build: main.cpp
 run: main
 	./main
 
+clean:
+	rm -rf main test_service_knocker
