@@ -8,22 +8,21 @@ make:
 	make build
 	make run
 
-test:
-	make build_test
-	make run_test
-
-build_test: test_service_knocker.cpp
-	$(G++) $(OPTS) -o test_service_knocker $< $(filter-out main.cpp test_service_knocker.cpp, $(SRCS))
-
-run_test: test_service_knocker
-	./test_service_knocker
-
-
 build: main.cpp
 	$(G++) $(OPTS) -o main $^
 
 run: main
 	./main
 
+test:
+	$(call do_test, test_service_knocker)
+
 clean:
 	rm -rf main test_service_knocker
+
+define do_test
+	$(eval TARGET := $(subst $() ,,$1))
+	$(G++) $(OPTS) -o $(TARGET) $(TARGET).cpp $(filter-out main.cpp test_%.cpp, $(SRCS))
+	./$(TARGET)
+endef
+
