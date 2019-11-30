@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <cstring>
+#include <cstdint>
 #include "url_parser.h"
 
 using std::cout;
@@ -37,23 +38,23 @@ std::vector<std::string> split(std::string src, std::string splitter)
     // string -> const char *
     const char *csrc = src.c_str();
     const char *cspl = splitter.c_str();
-    int csrc_len = src.size();
-    int cspl_len = splitter.size();
+    size_t csrc_len = src.size();
+    size_t cspl_len = splitter.size();
 
     // split処理に使う
-    int old_idx = 0;
+    uint32_t old_idx = 0;
     std::vector<std::string> ret_list;
     char *tmp_str = (char*)malloc(csrc_len+1);
 
     // ret_listに文字列を登録するラムダ式
-    auto add_str = [&](const char *s, int s_idx, size_t len){
+    auto add_str = [&](const char *s, uint32_t s_idx, size_t len){
         strncpy(tmp_str, s+s_idx, len);
         tmp_str[len] = '\0';
         ret_list.emplace_back(tmp_str);
     };
 
     // split処理
-    for(int idx = 0; idx < (int)(csrc_len-cspl_len); ++ idx) {
+    for(uint32_t idx = 0; idx < (uint32_t)(csrc_len-cspl_len); ++ idx) {
         if(strncmp(csrc+idx, cspl, cspl_len) == 0) {
             add_str(csrc, old_idx, idx-old_idx);
             idx += cspl_len;
