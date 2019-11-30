@@ -23,9 +23,10 @@ clean:
 
 define do_test
 	$(eval TARGET := $(subst $() ,,$1))
-	$(G++) $(OPTS) -o $(TARGET) $(TARGET).cpp $(filter-out main.cpp test_%.cpp, $(SRCS))
+	$(G++) $(OPTS) -o $(TARGET) test/$(TARGET).cpp $(filter-out main.cpp test_%.cpp, $(SRCS))
 	./$(TARGET)
-	rm -rf $(TARGET)
+	@rm -rf $(TARGET)
 	@echo ""
 endef
 
+.PHONY: test
