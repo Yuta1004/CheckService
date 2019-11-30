@@ -19,12 +19,13 @@ test:
 	$(call do_test, test_url_parser)
 
 clean:
-	rm -rf main test_service_knocker
+	rm -rf main test_url_parser test_service_knocker
 
 define do_test
 	$(eval TARGET := $(subst $() ,,$1))
 	$(G++) $(OPTS) -o $(TARGET) $(TARGET).cpp $(filter-out main.cpp test_%.cpp, $(SRCS))
 	./$(TARGET)
+	rm -rf $(TARGET)
 	@echo ""
 endef
 
