@@ -7,7 +7,7 @@ namespace yn0014 {
 
 struct URLParser {
 
-    std::string scheme;
+    std::string protocol;
     std::string host;
     std::string docpath;
     URLParser(std::string url);

@@ -10,7 +10,25 @@ using std::endl;
 
 std::vector<std::string> split(std::string src, std::string splitter);
 
-yn0014::URLParser::URLParser(std::string url) {}
+yn0014::URLParser::URLParser(std::string url)
+{
+    // URLFormat =  <protocol>://<host>/<docpath>
+
+    // <protocol>
+    std::vector<std::string> protocol_host = split(url, "://");
+    protocol = protocol_host[0];
+    if(protocol.size() == 0) {
+        cerr << "Bad URL Format : " << protocol << endl;
+    }
+
+    // <host>
+    std::vector<std::string> host_docpath = split(protocol_host[1], "/");
+    host = host_docpath[0];
+
+    // <docpah>
+    size_t pro_host_len = protocol.size() + host.size() + 3;
+    docpath = url.replace(url.begin(), url.begin()+pro_host_len, "");
+}
 
 
 std::vector<std::string> split(std::string src, std::string splitter)
