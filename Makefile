@@ -1,6 +1,6 @@
 G++ = g++
 OPTS = -Wall -std=c++17 --pedantic-errors
-SRCS = $(wildcard *.cpp)
+SRCS = $(wildcard *.cpp */*.cpp)
 
 
 make:
@@ -22,7 +22,7 @@ clean:
 
 define do_test
 	$(eval TARGET := $(subst $() ,,$1))
-	$(G++) $(OPTS) -o $(TARGET) test/$(TARGET).cpp $(filter-out main.cpp test_%.cpp, $(SRCS))
+	$(G++) $(OPTS) -o $(TARGET) test/$(TARGET).cpp $(filter-out main.cpp test/%.cpp, $(SRCS))
 	./$(TARGET)
 	@rm -rf $(TARGET)
 	@echo ""
