@@ -11,6 +11,10 @@ std::vector<std::string> yn0014::mystring::split(std::string src, std::string sp
     size_t csrc_len = src.size();
     size_t cspl_len = splitter.size();
 
+    // 入力検証
+    if(csrc_len <= 0 || cspl_len <= 0)
+        return std::vector<std::string>(0);
+
     // split処理に使う
     uint32_t old_idx = 0;
     std::vector<std::string> ret_list;
