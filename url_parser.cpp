@@ -19,6 +19,7 @@ yn0014::URLParser::URLParser(std::string url)
     protocol = protocol_host[0];
     if(protocol.size() == 0) {
         cerr << "Bad URL Format : " << protocol << endl;
+        exit(1);
     }
 
     // <host>
