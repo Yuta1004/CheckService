@@ -21,7 +21,7 @@ namespace yn0014 {
             virtual std::string getRecv() = 0;
 
         private:
-            std::string ipAddr, recvMessage;
+            std::string ipAddr;
             int32_t port;
 
         protected:
