@@ -22,7 +22,11 @@ namespace yn0014 {
 
         private:
             std::string ipAddr, recvMessage;
-            int32_t port;
+            int32_t port, sock;
+
+            bool createSock(int32_t socketType); // -> IPPROTOCO_TCP or IPPROTOCO_UDP
+            bool connectSock();
+            void closeSock();
 
         };
 
