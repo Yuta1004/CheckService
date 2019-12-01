@@ -36,7 +36,7 @@ bool yn0014::net::Connector::createSock(int32_t socketType)
 
     // ソケット生成
     sock = socket(AF_INET, SOCK_STREAM, socketType);
-    return sock < 0;
+    return sock > 0;
 }
 
 bool yn0014::net::Connector::connectSock()
@@ -49,7 +49,7 @@ bool yn0014::net::Connector::connectSock()
     sc_addr.sin_port = htons(port);
 
     // 接続
-    return connect(sock, (struct sockaddr *)&sc_addr, sizeof(sc_addr)) < 0;
+    return connect(sock, (struct sockaddr *)&sc_addr, sizeof(sc_addr)) >= 0;
 }
 
 void yn0014::net::Connector::closeSock()
