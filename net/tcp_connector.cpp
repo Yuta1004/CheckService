@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <netinet/in.h>
 #include "network_connector.h"
 
@@ -24,9 +25,14 @@ yn0014::net::TCPConnector::~TCPConnector()
     closeSock();
 }
 
-void yn0014::net::TCPConnector::send(std::string msg)
+bool yn0014::net::TCPConnector::sendMsg(std::string msg)
 {
-    /* TODO */
+    int32_t result = 0;
+    const char *cmsg = msg.c_str();
+    size_t cmsg_len = strlen(cmsg)+1;
+    result = send(sock, cmsg, cmsg_len, 0);
+    return result == (int32_t)cmsg_len;
+
 }
 
 std::string yn0014::net::TCPConnector::getRecv()
