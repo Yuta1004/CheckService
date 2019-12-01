@@ -27,7 +27,6 @@ clean:
 	rm -rf main test_url_parser test_service_knocker test_dns_resolver
 
 define do_test
-	echo $1
 	$(eval TARGET_FORM := $(subst $() ,,$1))
 	$(G++) $(OPTS) -o $(TARGET_FORM) test/$(TARGET_FORM).cpp $(filter-out main.cpp test/%.cpp, $(SRCS))
 	./$(TARGET_FORM)
