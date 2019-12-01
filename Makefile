@@ -17,6 +17,7 @@ test:
 	$(call do_test, test_service_knocker)
 	$(call do_test, test_url_parser)
 	$(call do_test, test_dns_resolver)
+	$(call do_test, test_tcp_connector)
 
 clean:
 	rm -rf main test_url_parser test_service_knocker test_dns_resolver
