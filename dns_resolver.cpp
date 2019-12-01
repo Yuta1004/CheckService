@@ -33,8 +33,8 @@ bool checkIPv4Format(std::string strIP)
     if(ipElems.size() != 4)
         return false;
 
-    for(uint32_t idx = 0; idx < 4; ++ idx) {
-        uint32_t num = std::atoi(ipElems[idx].c_str());
+    for(int32_t idx = 0; idx < 4; ++ idx) {
+        int32_t num = std::atoi(ipElems[idx].c_str());
         if(num < 0 || 255 < num)
             return false;
     }

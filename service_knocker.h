@@ -14,7 +14,7 @@ class ServiceKnocker{
 
 private:
     std::string hostIP;
-    uint32_t result;
+    int32_t result;
 
     std::string resolveHost(std::string host);
 
