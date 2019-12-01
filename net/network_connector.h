@@ -15,6 +15,7 @@ namespace yn0014 {
 
             std::string getIPAddr();
             int32_t getPort();
+            int32_t getSock();
 
             virtual ~Connector() = 0;
             virtual void send(std::string msg) = 0;
