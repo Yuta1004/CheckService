@@ -1,6 +1,7 @@
 G++ = g++
 OPTS = -Wall -std=c++17 --pedantic-errors
 SRCS = $(wildcard *.cpp */*.cpp)
+TEST_TARGET = tcp_connector
 
 
 make:
@@ -18,6 +19,9 @@ test:
 	$(call do_test, test_url_parser)
 	$(call do_test, test_dns_resolver)
 	$(call do_test, test_tcp_connector)
+
+test-once:
+	$(call do_test, test_$(TEST_TARGET))
 
 clean:
 	rm -rf main test_url_parser test_service_knocker test_dns_resolver
