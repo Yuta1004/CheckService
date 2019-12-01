@@ -16,13 +16,24 @@ namespace yn0014 {
             std::string getIPAddr();
             int32_t getPort();
 
-            virtual ~Connector();
-            virtual void send(std::string msg);
-            virtual std::string getRecv();
+            virtual ~Connector() = 0;
+            virtual void send(std::string msg) = 0;
+            virtual std::string getRecv() = 0;
 
         private:
             std::string ipAddr, recvMessage;
             int32_t port;
+
+        };
+
+        class TCPConnector : Connector {
+
+        public:
+            TCPConnector(std::string ipAddr);
+            TCPConnector(std::string ipAddr, int32_t port);
+            ~TCPConnector();
+            void send(std::string msg);
+            std::string getRecv();
 
         };
 
