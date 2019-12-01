@@ -17,7 +17,7 @@ namespace yn0014 {
             int32_t getPort();
 
             virtual ~Connector() = 0;
-            virtual void sendMsg(std::string msg) = 0;
+            virtual bool sendMsg(std::string msg) = 0;
             virtual std::string getRecv() = 0;
 
         private:
@@ -38,7 +38,7 @@ namespace yn0014 {
             TCPConnector(std::string ipAddr);
             TCPConnector(std::string ipAddr, int32_t port);
             ~TCPConnector();
-            void sendMsg(std::string msg);
+            bool sendMsg(std::string msg);
             std::string getRecv();
 
         };
