@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <string>
 
-#define BUFLEN 100
+#define BUFLEN 1000
 
 namespace yn0014 {
 
