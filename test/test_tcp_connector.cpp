@@ -2,6 +2,7 @@
 
 int main()
 {
-    yn0014::net::TCPConnector tcpA("1.2.3.4");
-    yn0014::net::TCPConnector tcpB("1.2.3.4", 80);
+    // 172.217.26.14 => google.com
+    yn0014::net::TCPConnector tcpA("172.217.26.14");
+    yn0014::net::TCPConnector tcpB("172.217.26.14", 80);
 }
