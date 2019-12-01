@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <string>
 
+#define BUFLEN 100
+
 namespace yn0014 {
 
     namespace net {

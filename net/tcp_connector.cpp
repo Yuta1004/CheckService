@@ -32,11 +32,17 @@ bool yn0014::net::TCPConnector::sendMsg(std::string msg)
     size_t cmsg_len = strlen(cmsg)+1;
     result = send(sock, cmsg, cmsg_len, 0);
     return result == (int32_t)cmsg_len;
-
 }
 
 std::string yn0014::net::TCPConnector::getRecv()
 {
-    /* TODO */
-    return "";
+    int32_t result = 0;
+    char recvBuf[BUFLEN];
+
+    result = recv(sock, recvBuf, BUFLEN, 0);
+    if(result < 0)
+        return "";
+
+    recvBuf[result] = '\0';
+    return std::string(recvBuf);
 }
