@@ -28,11 +28,6 @@ int32_t yn0014::net::Connector::getPort()
     return port;
 }
 
-int32_t yn0014::net::Connector::getSock()
-{
-    return sock;
-}
-
 bool yn0014::net::Connector::createSock(int32_t socketType)
 {
     // 入力検証
