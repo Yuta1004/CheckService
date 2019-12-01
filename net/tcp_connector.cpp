@@ -61,8 +61,8 @@ bool yn0014::net::TCPConnector::connectSock()
     struct sockaddr_in sc_addr;
     memset(&sc_addr, 0, sizeof(sc_addr));
     sc_addr.sin_family = AF_INET;
-    sc_addr.sin_addr.s_addr = inet_addr(getIPAddr().c_str());
-    sc_addr.sin_port = htons(getPort());
+    sc_addr.sin_addr.s_addr = inet_addr(ipAddr.c_str());
+    sc_addr.sin_port = htons(port);
 
     // 接続
     return connect(sock, (struct sockaddr *)&sc_addr, sizeof(sc_addr)) >= 0;

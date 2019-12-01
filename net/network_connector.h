@@ -14,18 +14,13 @@ namespace yn0014 {
 
         public:
             Connector(std::string ipAddr, int32_t port);
-            std::string getIPAddr();
-            int32_t getPort();
             virtual ~Connector() = 0;
             virtual bool sendMsg(std::string msg) = 0;
             virtual std::string getRecv() = 0;
 
-        private:
-            std::string ipAddr;
-            int32_t port;
-
         protected:
-            int32_t sock;
+            std::string ipAddr;
+            int32_t sock, port;
             void closeSock();
 
         };
