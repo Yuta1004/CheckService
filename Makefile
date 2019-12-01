@@ -1,7 +1,7 @@
 G++ = g++
 OPTS = -Wall -std=c++17 --pedantic-errors
 SRCS = $(wildcard *.cpp */*.cpp)
-TEST_TARGET = tcp_connector
+TARGET = empty
 
 
 make:
@@ -21,16 +21,17 @@ test:
 	$(call do_test, test_tcp_connector)
 
 test-once:
-	$(call do_test, test_$(TEST_TARGET))
+	$(call do_test, test_$(TARGET))
 
 clean:
 	rm -rf main test_url_parser test_service_knocker test_dns_resolver
 
 define do_test
-	$(eval TARGET := $(subst $() ,,$1))
-	$(G++) $(OPTS) -o $(TARGET) test/$(TARGET).cpp $(filter-out main.cpp test/%.cpp, $(SRCS))
-	./$(TARGET)
-	@rm -rf $(TARGET)
+	echo $1
+	$(eval TARGET_FORM := $(subst $() ,,$1))
+	$(G++) $(OPTS) -o $(TARGET_FORM) test/$(TARGET_FORM).cpp $(filter-out main.cpp test/%.cpp, $(SRCS))
+	./$(TARGET_FORM)
+	@rm -rf $(TARGET_FORM)
 	@echo ""
 endef
 
