@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <arpa/inet.h>
 #include <netinet/in.h>
 #include "network_connector.h"
 
@@ -12,7 +13,7 @@ yn0014::net::TCPConnector::TCPConnector(std::string ipAddr) : TCPConnector(ipAdd
 
 yn0014::net::TCPConnector::TCPConnector(std::string ipAddr, int32_t port) : Connector(ipAddr, port)
 {
-    if(!createSock(IPPROTO_TCP))
+    if(!createSock())
         cerr << "Cannot create socket" << endl;
 
     if(!connectSock())
@@ -46,3 +47,24 @@ std::string yn0014::net::TCPConnector::getRecv()
     recvBuf[result] = '\0';
     return std::string(recvBuf);
 }
+
+bool yn0014::net::TCPConnector::createSock()
+{
+    // ソケット生成
+    sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    return sock > 0;
+}
+
+bool yn0014::net::TCPConnector::connectSock()
+{
+    // 接続先の情報
+    struct sockaddr_in sc_addr;
+    memset(&sc_addr, 0, sizeof(sc_addr));
+    sc_addr.sin_family = AF_INET;
+    sc_addr.sin_addr.s_addr = inet_addr(getIPAddr().c_str());
+    sc_addr.sin_port = htons(getPort());
+
+    // 接続
+    return connect(sock, (struct sockaddr *)&sc_addr, sizeof(sc_addr)) >= 0;
+}
+
