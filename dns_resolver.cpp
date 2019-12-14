@@ -5,6 +5,7 @@
 #include <string>
 #include "dns_resolver.h"
 #include "mystring/mystring.h"
+#include "net/util.h"
 
 using std::cout;
 using std::cerr;
@@ -19,7 +20,7 @@ yn0014::DNSResolver::DNSResolver()
 
 yn0014::DNSResolver::DNSResolver(std::string masterServerIP)
 {
-    if(checkIPv4Format(masterServerIP)) {
+    if(yn0014::net::util::checkIPv4Format(masterServerIP)) {
         this->masterServerIP = masterServerIP;
     } else {
         cerr << "Bad IP Format : " << masterServerIP << endl;
@@ -27,16 +28,3 @@ yn0014::DNSResolver::DNSResolver(std::string masterServerIP)
     }
 }
 
-bool checkIPv4Format(std::string strIP)
-{
-    std::vector<std::string> ipElems = yn0014::mystring::split(strIP, ".");
-    if(ipElems.size() != 4)
-        return false;
-
-    for(int32_t idx = 0; idx < 4; ++ idx) {
-        int32_t num = std::atoi(ipElems[idx].c_str());
-        if(num < 0 || 255 < num)
-            return false;
-    }
-    return true;
-}
