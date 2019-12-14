@@ -4,8 +4,8 @@
 #include <vector>
 #include <string>
 #include "dns_resolver.h"
-#include "mystring/mystring.h"
-#include "net/util.h"
+#include "util.h"
+#include "../mystring/mystring.h"
 
 using std::cout;
 using std::cerr;
@@ -13,12 +13,12 @@ using std::endl;
 
 bool checkIPv4Format(std::string strIP);
 
-yn0014::DNSResolver::DNSResolver()
+yn0014::net::DNSResolver::DNSResolver()
 {
     masterServerIP = "8.8.8.8";     // Google DNS
 }
 
-yn0014::DNSResolver::DNSResolver(std::string masterServerIP)
+yn0014::net::DNSResolver::DNSResolver(std::string masterServerIP)
 {
     if(yn0014::net::util::checkIPv4Format(masterServerIP)) {
         this->masterServerIP = masterServerIP;
