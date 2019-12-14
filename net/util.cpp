@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
-#include "mystring/mystring.h"
-#include "net/util.h"
+#include "../mystring/mystring.h"
+#include "util.h"
 
 
 bool yn0014::net::util::checkIPv4Format(std::string strIP)

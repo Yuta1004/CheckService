@@ -8,7 +8,9 @@ namespace yn0014 {
     namespace net {
 
         namespace util {
+
             bool checkIPv4Format(std::string strIP);
+
         }
 
     }
