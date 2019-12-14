@@ -13,11 +13,15 @@ yn0014::net::TCPConnector::TCPConnector(std::string ipAddr) : TCPConnector(ipAdd
 
 yn0014::net::TCPConnector::TCPConnector(std::string ipAddr, int32_t port) : Connector(ipAddr, port)
 {
-    if(!createSock())
+    if(!createSock()) {
         cerr << "Cannot create socket" << endl;
+        exit(1);
+    }
 
-    if(!connectSock())
+    if(!connectSock()) {
         cerr << "Cannot connect to host" << endl;
+        exit(1);
+    }
 }
 
 
