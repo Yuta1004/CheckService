@@ -11,6 +11,13 @@ namespace yn0014 {
 
             bool checkIPv4Format(std::string strIP);
 
+            struct URLParser {
+                std::string protocol;
+                std::string host;
+                std::string docpath;
+                URLParser(std::string url);
+            };
+
         }
 
     }
