@@ -28,3 +28,22 @@ yn0014::net::DNSResolver::DNSResolver(std::string masterServerIP)
     }
 }
 
+void yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
+{
+    /* DNS Query Header */
+    // - ID         16  C   (任意)
+    // - QR         1   C   (問合せの場合は0)
+    // - OPCODE     4   C   (通常クエリは0)
+    // - AA         1   S   (管理権限のある応答の場合1)
+    // - TC         1   S   (応答が切り詰められている場合1)
+    // - RD         1   C   (名前解決要求、権威DNSサーバへのリクエストは0)
+    // - RA         1   S   (名前解決可能な場合0)
+    // - Z          1   -   (予約bit, 0にする)
+    // - AD         1   S   (DNSECに成功した場合1)
+    // - CD         1   C   (DNSSECを禁止する場合1)
+    // - RCODE      4   S   (レスポンスステータス)
+    // - QRCOUNT    16  C   (Questionセクションの数)
+    // - ANCOUNT    16  S   (Answerセクションの数)
+    // - NSCOUNT    16  S   (Authorityセクションの数)
+    // - ARCOUNT    16  S   (Additionalセクションの数)
+}
