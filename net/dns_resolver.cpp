@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "dns_resolver.h"
+#include "tcp_connector.h"
 #include "util.h"
 #include "../mystring/mystring.h"
 
@@ -29,13 +30,13 @@ yn0014::net::DNSResolver::DNSResolver(std::string masterServerIP)
     }
 }
 
-uint8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
+int8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
 {
 
     std::vector<std::string> labels = yn0014::mystring::split(hostURL, ".");
-    size_t hd_size = 6 * sizeof(uint16_t), qb_size = 0;
-    uint16_t header[6] = {0};
-    uint8_t *qsecBody = (uint8_t*)calloc(labels.size()*15+5, sizeof(uint8_t));
+    size_t hd_size = 6 * sizeof(int16_t), qb_size = 0;
+    int16_t header[6] = {0};
+    int8_t *qsecBody = (int8_t*)calloc(labels.size()*15+5, sizeof(int8_t));
 
     // ** DNS Query Header **
     // - ID         16  C   (任意)
@@ -71,7 +72,7 @@ uint8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
     qsecBody[qb_size++] = 0xff;
 
     // 組み立て
-    uint8_t *msg = (uint8_t*)malloc(hd_size+qb_size);
+    int8_t *msg = (int8_t*)malloc(hd_size+qb_size);
     memcpy(msg, header, hd_size);
     memcpy(msg+hd_size, qsecBody, qb_size);
     free(qsecBody);
