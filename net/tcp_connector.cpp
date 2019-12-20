@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
-#include "network_connector.h"
+#include "tcp_connector.h"
 
 using std::cout;
 using std::cerr;
