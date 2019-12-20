@@ -69,7 +69,8 @@ int8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
     qsecBody[qb_size++] = 1;
     qsecBody[qb_size++] = 0;
     qsecBody[qb_size++] = 1;
-    qsecBody[qb_size++] = 0xff;
+    qsecBody[qb_size++] = 0xff/2-1;
+    qsecBody[qb_size++] = 0xff/2-1;
 
     // 組み立て
     int8_t *msg = (int8_t*)malloc(hd_size+qb_size);

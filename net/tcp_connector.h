@@ -18,7 +18,7 @@ namespace yn0014 {
             ~TCPConnector();
             bool sendMsg(void *msg, size_t len);
             bool sendMsg(std::string msg);
-            uint8_t *getRecv();
+            int8_t *getRecv();
 
         private:
             std::string ipAddr;
