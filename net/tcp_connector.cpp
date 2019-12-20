@@ -34,13 +34,17 @@ yn0014::net::TCPConnector::~TCPConnector()
     closeSock();
 }
 
+bool yn0014::net::TCPConnector::sendMsg(void *msg, size_t len)
+{
+    int32_t result = send(sock, msg, len, 0);
+    return result == (int32_t)len;
+}
+
 bool yn0014::net::TCPConnector::sendMsg(std::string msg)
 {
-    int32_t result = 0;
     const char *cmsg = msg.c_str();
     size_t cmsg_len = strlen(cmsg)+1;
-    result = send(sock, cmsg, cmsg_len, 0);
-    return result == (int32_t)cmsg_len;
+    return sendMsg((void*)cmsg, cmsg_len);
 }
 
 std::string yn0014::net::TCPConnector::getRecv()
