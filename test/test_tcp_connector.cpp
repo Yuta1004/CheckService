@@ -13,6 +13,5 @@ int main()
     // 153.120.168.14 => www.yuge.ac.jp
     yn0014::net::TCPConnector tcpA("153.120.168.14");
     tcpA.sendMsg("GET / HTTP/1.0\r\n\r\n");
-    /* tcpA.sendMsg("GET / HTTP/1.0\r\nUser-Agent:yn0014-TCPConnector\r\n\n"); */
-    cout << tcpA.getRecv() << endl;
+    cout << (char*)tcpA.getRecv() << endl;
 }
