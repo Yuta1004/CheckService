@@ -10,33 +10,22 @@ namespace yn0014 {
 
     namespace net {
 
-        class Connector {
-
-        public:
-            Connector(std::string ipAddr, int32_t port);
-            virtual ~Connector() = 0;
-            virtual bool sendMsg(std::string msg) = 0;
-            virtual std::string getRecv() = 0;
-
-        protected:
-            std::string ipAddr;
-            int32_t sock, port;
-            void closeSock();
-
-        };
-
-        class TCPConnector : Connector {
+        class TCPConnector {
 
         public:
             TCPConnector(std::string ipAddr);
             TCPConnector(std::string ipAddr, int32_t port);
             ~TCPConnector();
+            bool sendMsg(void *buf, size_t len);
             bool sendMsg(std::string msg);
             std::string getRecv();
 
         private:
+            std::string ipAddr;
+            int32_t sock, port;
             bool createSock();
             bool connectSock();
+            void closeSock();
 
         };
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <unistd.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include "network_connector.h"
@@ -11,8 +12,11 @@ using std::endl;
 
 yn0014::net::TCPConnector::TCPConnector(std::string ipAddr) : TCPConnector(ipAddr, 80) {}
 
-yn0014::net::TCPConnector::TCPConnector(std::string ipAddr, int32_t port) : Connector(ipAddr, port)
+yn0014::net::TCPConnector::TCPConnector(std::string ipAddr, int32_t port)
 {
+    this->ipAddr = ipAddr;
+    this->port = port;
+
     if(!createSock()) {
         cerr << "Cannot create socket" << endl;
         exit(1);
@@ -72,3 +76,7 @@ bool yn0014::net::TCPConnector::connectSock()
     return connect(sock, (struct sockaddr *)&sc_addr, sizeof(sc_addr)) >= 0;
 }
 
+void yn0014::net::TCPConnector::closeSock()
+{
+    if(sock != 0) close(sock);
+}
