@@ -13,8 +13,6 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-bool checkIPv4Format(std::string strIP);
-
 yn0014::net::DNSResolver::DNSResolver()
 {
     masterServerIP = "8.8.8.8";     // Google DNS
@@ -81,4 +79,54 @@ uint8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
     memcpy(msg+hd_len, qsecBody, qb_len);
     free(qsecBody);
     return msg;
+}
+
+std::vector<std::string> yn0014::net::DNSResolver::parseDNSResMsg(uint8_t *msg, size_t len, size_t qb_len)
+{
+    uint16_t flag = 0, resp = 0, offset = 0;
+
+    /* @DNS Response Header
+        - ID         16  (リクエストに指定したものと同じ)
+        - FLAG       16  (リクエストヘッダーと同じ)
+        - QUERYN     16  (クエリ数)
+        - RESP       16  (応答数)
+        - SERVER     16  (権威サーバ数)
+        - ARCOUNT    16  (Additionalセクションの数)
+    */
+    memcpynum16(flag, msg+2);
+    memcpynum16(resp, msg+6);
+    if((flag & RCODE) != 0 || (flag & RA) != RA) {
+        cerr << "Received error response" << endl;
+        return std::vector<std::string>();
+    }
+    if(resp == 0) {
+        cerr << "AnswerSection is empty" << endl;
+        return std::vector<std::string>();
+    }
+    msg += 12;
+
+    /* @DNS Response Question Section
+         - QUERY      可変長  (送信したクエリがそのまま保存されている)
+    */
+    msg += qb_len;
+
+    /* @DNS Response Answer Section
+        - OFFSET     16  (00から始まる場合ドメインラベルそのまま、11の場合は圧縮情報)
+        - A          16  (タイプA)
+        - IN         16  (クラスIN)
+        - TTL        32  (TTL)
+        - IP         32  (解決結果)
+    */
+    memcpynum16(offset, msg);
+    if((offset & 0xc000) == 0) {
+        offset = 0;
+        while(msg[offset] != 0) ++ offset;
+    } else {
+        offset = 2;
+    }
+    msg += offset + 10;
+
+    return std::vector<std::string>{
+        yn0014::mystring::format("%d.%d.%d.%d", msg[0], msg[1], msg[2], msg[3])
+    };
 }

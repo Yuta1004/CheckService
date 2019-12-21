@@ -16,6 +16,10 @@
 #define RCODE   (0b0000000000001111)
 #define FINCODE (0xff/2-1)
 
+#define NONE_STATEMENT ;
+#define memcpynum16(dst, src) ((dst |= ((src)[0] << 8) | (src)[1]))
+#define memcpynum32(dst, src) ((dst |= ((src)[0] << 24) | ((src)[1] << 16) | ((src)[2] << 8) | (src)[3]))
+
 namespace yn0014 {
 
     namespace net {
@@ -30,6 +34,7 @@ namespace yn0014 {
         private:
             std::string masterServerIP;
             uint8_t *makeDNSReqMsg(std::string hostURL);
+            std::vector<std::string> parseDNSResMsg(uint8_t *msg, size_t len, size_t qb_len);
 
         };
 
