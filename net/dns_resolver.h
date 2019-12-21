@@ -34,7 +34,7 @@ namespace yn0014 {
         private:
             std::string masterServerIP;
             uint8_t *makeDNSReqMsg(std::string hostURL);
-            std::vector<std::string> parseDNSResMsg(uint8_t *msg, size_t len, size_t qb_len);
+            std::vector<std::string> parseDNSResMsg(uint8_t *msg, size_t qb_len);
 
         };
 

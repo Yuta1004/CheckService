@@ -81,7 +81,7 @@ uint8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
     return msg;
 }
 
-std::vector<std::string> yn0014::net::DNSResolver::parseDNSResMsg(uint8_t *msg, size_t len, size_t qb_len)
+std::vector<std::string> yn0014::net::DNSResolver::parseDNSResMsg(uint8_t *msg, size_t qb_len)
 {
     uint16_t flag = 0, resp = 0, offset = 0;
 
