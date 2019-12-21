@@ -14,6 +14,7 @@
 #define AD      (0b0000000000100000)
 #define CD      (0b0000000000010000)
 #define RCODE   (0b0000000000001111)
+#define FINCODE (0xff/2-1)
 
 namespace yn0014 {
 
