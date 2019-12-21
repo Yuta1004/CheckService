@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <cstring>
+#include <cstdio>
 #include "mystring.h"
 
 std::vector<std::string> yn0014::mystring::split(std::string src, std::string splitter)
