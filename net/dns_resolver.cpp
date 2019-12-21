@@ -88,7 +88,8 @@ std::vector<std::string> yn0014::net::DNSResolver::parseDNSResMsg(uint8_t *msg, 
 {
     uint16_t flag = 0, resp = 0, offset = 0;
 
-    /* @DNS Response Header
+    /* @DNS Response Header(TCP)
+        - SIZE       16  (パケットサイズ)
         - ID         16  (リクエストに指定したものと同じ)
         - FLAG       16  (リクエストヘッダーと同じ)
         - QUERYN     16  (クエリ数)
@@ -96,8 +97,8 @@ std::vector<std::string> yn0014::net::DNSResolver::parseDNSResMsg(uint8_t *msg, 
         - SERVER     16  (権威サーバ数)
         - ARCOUNT    16  (Additionalセクションの数)
     */
-    memcpynum16(flag, msg+2);
-    memcpynum16(resp, msg+6);
+    memcpynum16(flag, msg+4);
+    memcpynum16(resp, msg+8);
     if((flag & RCODE) != 0 || (flag & RA) != RA) {
         cerr << "Received error response" << endl;
         return std::vector<std::string>();
@@ -106,7 +107,7 @@ std::vector<std::string> yn0014::net::DNSResolver::parseDNSResMsg(uint8_t *msg, 
         cerr << "AnswerSection is empty" << endl;
         return std::vector<std::string>();
     }
-    msg += 12;
+    msg += 14;
 
     /* @DNS Response Question Section
          - QUERY      可変長  (送信したクエリがそのまま保存されている)
