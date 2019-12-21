@@ -30,13 +30,13 @@ yn0014::net::DNSResolver::DNSResolver(std::string masterServerIP)
 
 uint8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
 {
-
     std::vector<std::string> labels = yn0014::mystring::split(hostURL, ".");
-    size_t hd_len = 6 * sizeof(int16_t), qb_len = 0;
-    uint16_t header[6] = {0};
+    size_t hd_len = 7 * sizeof(int16_t), qb_len = 0;
+    uint16_t header[7] = {0};
     uint8_t *qsecBody = (uint8_t*)calloc(labels.size()*15+5, sizeof(uint8_t));
 
-    /* @DNS Query Header
+    /* @DNS Query Header(TCP)
+        - SIZE       16  C   (パケットサイズ)
         - ID         16  C   (任意)
         - QR         1   C   (問合せの場合は0)
         - OPCODE     4   C   (通常クエリは0)
@@ -53,8 +53,8 @@ uint8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
         - NSCOUNT    16  S   (Authorityセクションの数)
         - ARCOUNT    16  S   (Additionalセクションの数)
      */
-    header[1] |= RD;
-    header[2] = 1;
+    header[2] |= RD;
+    header[3] = 1;
 
     /* @DNS Qestion Section
         - size   1       (ラベルのサイズ)
@@ -71,8 +71,7 @@ uint8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
     qsecBody[qb_len++] = 1;
     qsecBody[qb_len++] = 0;
     qsecBody[qb_len++] = 1;
-    qsecBody[qb_len++] = FINCODE;
-    qsecBody[qb_len++] = FINCODE;
+    header[0] = hd_len + qb_len;
 
     // 組み立て
     uint8_t *msg = (uint8_t*)malloc(hd_len+qb_len);
