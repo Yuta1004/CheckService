@@ -54,6 +54,7 @@ uint8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
         - ARCOUNT    16  S   (Additionalセクションの数)
      */
     header[1] |= RD;
+    header[2] = 1;
 
     /* @DNS Qestion Section
         - size   1       (ラベルのサイズ)
@@ -75,7 +76,10 @@ uint8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
 
     // 組み立て
     uint8_t *msg = (uint8_t*)malloc(hd_len+qb_len);
-    memcpy(msg, header, hd_len);
+    for(int32_t idx = 0; idx < (int32_t)hd_len; idx += 2) { // エンディアンの影響で素直にmemcpyが使えない
+        msg[idx] = (header[idx/2] & 0xff00) >> 8;
+        msg[idx+1] = header[idx/2] & 0x00ff;
+    }
     memcpy(msg+hd_len, qsecBody, qb_len);
     free(qsecBody);
     return msg;
