@@ -28,6 +28,23 @@ yn0014::net::DNSResolver::DNSResolver(std::string masterServerIP)
     }
 }
 
+std::vector<std::string> yn0014::net::DNSResolver::solve(std::string hostURL)
+{
+    uint8_t *reqMsg = makeDNSReqMsg(hostURL), *respMsg;
+    size_t reqLen = ((uint16_t*)reqMsg)[0];
+    reqLen = ((reqLen & 0xff00) >> 8) | ((reqLen & 0x00ff) << 8);
+    reqLen += 2;
+
+    yn0014::net::TCPConnector conn(masterServerIP, 53);
+    conn.sendMsg(reqMsg, reqLen);
+    respMsg = conn.getRecv();
+
+    std::vector<std::string> result = parseDNSResMsg(respMsg, reqLen-14);   // QuestionSectionの長さだけ欲しいのでヘッダーサイズを引く
+    free(reqMsg);
+    free(respMsg);
+    return result;
+}
+
 uint8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
 {
     std::vector<std::string> labels = yn0014::mystring::split(hostURL, ".");
