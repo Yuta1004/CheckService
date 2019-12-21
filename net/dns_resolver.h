@@ -29,7 +29,7 @@ namespace yn0014 {
 
         private:
             std::string masterServerIP;
-            int8_t *makeDNSReqMsg(std::string hostURL);
+            uint8_t *makeDNSReqMsg(std::string hostURL);
 
         };
 

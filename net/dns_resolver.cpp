@@ -30,13 +30,13 @@ yn0014::net::DNSResolver::DNSResolver(std::string masterServerIP)
     }
 }
 
-int8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
+uint8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
 {
 
     std::vector<std::string> labels = yn0014::mystring::split(hostURL, ".");
     size_t hd_len = 6 * sizeof(int16_t), qb_len = 0;
-    int16_t header[6] = {0};
-    int8_t *qsecBody = (int8_t*)calloc(labels.size()*15+5, sizeof(int8_t));
+    uint16_t header[6] = {0};
+    uint8_t *qsecBody = (uint8_t*)calloc(labels.size()*15+5, sizeof(uint8_t));
 
     /* @DNS Query Header
         - ID         16  C   (任意)
@@ -76,7 +76,7 @@ int8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
     qsecBody[qb_len++] = FINCODE;
 
     // 組み立て
-    int8_t *msg = (int8_t*)malloc(hd_len+qb_len);
+    uint8_t *msg = (uint8_t*)malloc(hd_len+qb_len);
     memcpy(msg, header, hd_len);
     memcpy(msg+hd_len, qsecBody, qb_len);
     free(qsecBody);

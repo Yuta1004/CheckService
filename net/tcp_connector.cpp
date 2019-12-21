@@ -47,10 +47,10 @@ bool yn0014::net::TCPConnector::sendMsg(std::string msg)
     return sendMsg((void*)cmsg, cmsg_len);
 }
 
-int8_t* yn0014::net::TCPConnector::getRecv()
+uint8_t* yn0014::net::TCPConnector::getRecv()
 {
     int32_t result = 0;
-    int8_t *recvBuf = (int8_t*)malloc(BUFLEN*sizeof(int8_t));
+    uint8_t *recvBuf = (uint8_t*)malloc(BUFLEN*sizeof(uint8_t));
 
     result = recv(sock, recvBuf, BUFLEN, 0);
     if(result < 0)
