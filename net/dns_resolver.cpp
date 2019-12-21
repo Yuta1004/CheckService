@@ -66,6 +66,7 @@ int8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
         }
     }
     qsecBody[qb_size++] = 0;
+    qsecBody[qb_size++] = 0;
     qsecBody[qb_size++] = 1;
     qsecBody[qb_size++] = 0;
     qsecBody[qb_size++] = 1;
