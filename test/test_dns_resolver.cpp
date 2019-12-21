@@ -19,7 +19,7 @@ int main()
         if(inp == "q")
             break;
 
-        std::vector<std::string> result = resolver.solve(inp);
+        std::vector<std::string> result = resolver.resolve(inp);
         for(auto ip : result)
             cout << ip << endl;
         cout << endl;

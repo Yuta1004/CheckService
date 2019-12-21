@@ -28,7 +28,7 @@ yn0014::net::DNSResolver::DNSResolver(std::string masterServerIP)
     }
 }
 
-std::vector<std::string> yn0014::net::DNSResolver::solve(std::string hostURL)
+std::vector<std::string> yn0014::net::DNSResolver::resolve(std::string hostURL)
 {
     uint8_t *reqMsg = makeDNSReqMsg(hostURL), *respMsg;
     size_t reqLen = ((uint16_t*)reqMsg)[0];

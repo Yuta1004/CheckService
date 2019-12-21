@@ -29,7 +29,7 @@ namespace yn0014 {
         public:
             DNSResolver();
             DNSResolver(std::string masterServerIP);
-            std::vector<std::string> solve(std::string hostURL);
+            std::vector<std::string> resolve(std::string hostURL);
 
         private:
             std::string masterServerIP;
