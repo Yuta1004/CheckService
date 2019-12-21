@@ -1,8 +1,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include "../mystring/mystring.h"
-#include "util.h"
+#include "../mystring/mystring.hpp"
+#include "util.hpp"
 
 using std::cout;
 using std::cerr;

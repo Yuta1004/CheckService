@@ -1,6 +1,6 @@
 #include <string>
 #include <cassert>
-#include "../net/util.h"
+#include "../net/util.hpp"
 
 int main()
 {

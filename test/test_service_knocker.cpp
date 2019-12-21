@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../service_knocker.h"
+#include "../service_knocker.hpp"
 
 using std::cout;
 using std::endl;

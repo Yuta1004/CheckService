@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "../net/dns_resolver.h"
+#include "../net/dns_resolver.hpp"
 
 using std::cout;
 using std::cin;

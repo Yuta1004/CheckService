@@ -4,10 +4,10 @@
 #include <cstring>
 #include <vector>
 #include <string>
-#include "dns_resolver.h"
-#include "tcp_connector.h"
-#include "util.h"
-#include "../mystring/mystring.h"
+#include "dns_resolver.hpp"
+#include "tcp_connector.hpp"
+#include "util.hpp"
+#include "../mystring/mystring.hpp"
 
 using std::cout;
 using std::cerr;

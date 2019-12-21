@@ -2,7 +2,7 @@
 #include <vector>
 #include <cstring>
 #include <cstdio>
-#include "mystring.h"
+#include "mystring.hpp"
 
 std::vector<std::string> yn0014::mystring::split(std::string src, std::string splitter)
 {
