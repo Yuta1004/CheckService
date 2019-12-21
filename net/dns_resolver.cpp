@@ -34,7 +34,7 @@ int8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
 {
 
     std::vector<std::string> labels = yn0014::mystring::split(hostURL, ".");
-    size_t hd_size = 6 * sizeof(int16_t), qb_size = 0;
+    size_t hd_len = 6 * sizeof(int16_t), qb_len = 0;
     int16_t header[6] = {0};
     int8_t *qsecBody = (int8_t*)calloc(labels.size()*15+5, sizeof(int8_t));
 
@@ -60,23 +60,23 @@ int8_t *yn0014::net::DNSResolver::makeDNSReqMsg(std::string hostURL)
     // - size   1       (ラベルのサイズ)
     // - label  可変長  (ラベル, ASCII)
     for(auto part : labels) {
-        qsecBody[qb_size++] = part.size();
+        qsecBody[qb_len++] = part.size();
         for(char c : part) {
-            qsecBody[qb_size++] = c;
+            qsecBody[qb_len++] = c;
         }
     }
-    qsecBody[qb_size++] = 0;
-    qsecBody[qb_size++] = 0;
-    qsecBody[qb_size++] = 1;
-    qsecBody[qb_size++] = 0;
-    qsecBody[qb_size++] = 1;
-    qsecBody[qb_size++] = FINCODE;
-    qsecBody[qb_size++] = FINCODE;
+    qsecBody[qb_len++] = 0;
+    qsecBody[qb_len++] = 0;
+    qsecBody[qb_len++] = 1;
+    qsecBody[qb_len++] = 0;
+    qsecBody[qb_len++] = 1;
+    qsecBody[qb_len++] = FINCODE;
+    qsecBody[qb_len++] = FINCODE;
 
     // 組み立て
-    int8_t *msg = (int8_t*)malloc(hd_size+qb_size);
-    memcpy(msg, header, hd_size);
-    memcpy(msg+hd_size, qsecBody, qb_size);
+    int8_t *msg = (int8_t*)malloc(hd_len+qb_len);
+    memcpy(msg, header, hd_len);
+    memcpy(msg+hd_len, qsecBody, qb_len);
     free(qsecBody);
     return msg;
 }
