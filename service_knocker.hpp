@@ -20,7 +20,7 @@ private:
 
 public:
     ServiceKnocker(std::string host);
-    int knock();
+    int32_t knock();
 };
 
 }
