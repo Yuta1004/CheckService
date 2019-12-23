@@ -6,9 +6,9 @@
 #include <vector>
 #include "net/util.hpp"
 
-#define SUCCESS(x)   (int)(x)/100==2
-#define FAILED40x(x) (int)(x)/100==4
-#define FAILED50x(x) (int)(x)/100==5
+#define SUCCESS(x)   ((int32_t)(x)/100==2)
+#define FAILED40x(x) ((int32_t)(x)/100==4)
+#define FAILED50x(x) ((int32_t)(x)/100==5)
 
 namespace yn0014 {
 
