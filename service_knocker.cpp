@@ -10,8 +10,13 @@ using std::endl;
 yn0014::ServiceKnocker::ServiceKnocker(std::string serviceURL)
 {
     yn0014::net::DNSResolver resolver;
-    yn0014::net::util::URLParser url(serviceURL);
-    hostIP = resolver.resolve(url.host)[0];
+    url = new yn0014::net::util::URLParser(serviceURL);
+    hostIP = resolver.resolve(url->host)[0];
+}
+
+yn0014::ServiceKnocker::~ServiceKnocker()
+{
+    delete(url);
 }
 
 int32_t yn0014::ServiceKnocker::knock()

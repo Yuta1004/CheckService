@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <string>
+#include "net/util.hpp"
 
 #define SUCCESS(x)   (int)(x)/100==2
 #define FAILED40x(x) (int)(x)/100==4
@@ -14,9 +15,11 @@ namespace yn0014 {
 
     public:
         ServiceKnocker(std::string serviceURL);
+        ~ServiceKnocker();
         int32_t knock();
 
     private:
+        yn0014::net::util::URLParser *url;
         std::string hostIP;
         int32_t result;
 
