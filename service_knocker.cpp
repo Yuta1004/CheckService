@@ -36,3 +36,7 @@ int32_t yn0014::ServiceKnocker::getStatus()
     return result;
 }
 
+std::vector<std::string> yn0014::ServiceKnocker::getResp()
+{
+    return resp;
+}

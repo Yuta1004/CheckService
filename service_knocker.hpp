@@ -20,6 +20,7 @@ namespace yn0014 {
         ~ServiceKnocker();
         void knock();
         int32_t getStatus();
+        std::vector<std::string> getResp();
 
     private:
         int32_t result;
