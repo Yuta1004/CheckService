@@ -6,5 +6,6 @@ using std::endl;
 
 int main()
 {
-    yn0014::ServiceKnocker sknocker(std::string("http://www.yuge.ac.jp/subject/info"));
+    yn0014::ServiceKnocker sknocker("http://www.yuge.ac.jp/subject/info");
+    sknocker.knock();
 }
