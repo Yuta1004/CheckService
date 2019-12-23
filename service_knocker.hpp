@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 #include "net/util.hpp"
 
 #define SUCCESS(x)   (int)(x)/100==2
@@ -19,9 +20,10 @@ namespace yn0014 {
         int32_t knock();
 
     private:
-        yn0014::net::util::URLParser *url;
-        std::string hostIP;
         int32_t result;
+        std::string hostIP;
+        std::vector<std::string> resp;
+        yn0014::net::util::URLParser *url;
 
     };
 
