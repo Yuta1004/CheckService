@@ -9,7 +9,11 @@ using std::endl;
 
 int main()
 {
-    yn0014::net::DNSResolver resolver;
+    std::string dnsServerIP;
+    cout << "Please input DNS server address : ";
+    cin >> dnsServerIP;
+
+    yn0014::net::DNSResolver resolver(dnsServerIP);
 
     while(true) {
         std::string inp;
