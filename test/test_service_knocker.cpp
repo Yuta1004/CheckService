@@ -6,6 +6,5 @@ using std::endl;
 
 int main()
 {
-    cout << "Create Instance" << endl;
-    yn0014::ServiceKnocker sknocker(std::string("google.com"));
+    yn0014::ServiceKnocker sknocker(std::string("http://www.yuge.ac.jp/subject/info"));
 }
