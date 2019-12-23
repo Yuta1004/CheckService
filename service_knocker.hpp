@@ -17,7 +17,7 @@ namespace yn0014 {
     public:
         ServiceKnocker(std::string serviceURL);
         ~ServiceKnocker();
-        int32_t knock();
+        void knock();
 
     private:
         int32_t result;
