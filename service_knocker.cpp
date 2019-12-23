@@ -16,7 +16,6 @@ yn0014::ServiceKnocker::ServiceKnocker(std::string serviceURL)
 
 int32_t yn0014::ServiceKnocker::knock()
 {
-    this->result = 200;
-    return 0;
+    return (result = 200);
 }
 
