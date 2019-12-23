@@ -6,6 +6,7 @@
 #include <vector>
 #include "net/util.hpp"
 
+#define ERROR(x)     ((int32_t)(x)==0)
 #define SUCCESS(x)   ((int32_t)(x)/100==2)
 #define FAILED40x(x) ((int32_t)(x)/100==4)
 #define FAILED50x(x) ((int32_t)(x)/100==5)
@@ -18,6 +19,7 @@ namespace yn0014 {
         ServiceKnocker(std::string serviceURL);
         ~ServiceKnocker();
         void knock();
+        int32_t getStatus();
 
     private:
         int32_t result;
