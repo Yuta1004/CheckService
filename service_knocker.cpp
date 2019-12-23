@@ -2,10 +2,7 @@
 #include <string>
 #include "service_knocker.hpp"
 
-yn0014::ServiceKnocker::ServiceKnocker(std::string host)
-{
-    this->hostIP = resolveHost(host);
-}
+yn0014::ServiceKnocker::ServiceKnocker(std::string host) {}
 
 int32_t yn0014::ServiceKnocker::knock()
 {
@@ -13,7 +10,3 @@ int32_t yn0014::ServiceKnocker::knock()
     return 0;
 }
 
-std::string yn0014::ServiceKnocker::resolveHost(std::string host)
-{
-    return "";
-}

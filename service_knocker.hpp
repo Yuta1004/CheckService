@@ -10,18 +10,17 @@
 
 namespace yn0014 {
 
-class ServiceKnocker{
+    class ServiceKnocker{
 
-private:
-    std::string hostIP;
-    int32_t result;
+    public:
+        ServiceKnocker(std::string host);
+        int32_t knock();
 
-    std::string resolveHost(std::string host);
+    private:
+        std::string hostIP;
+        int32_t result;
 
-public:
-    ServiceKnocker(std::string host);
-    int32_t knock();
-};
+    };
 
 }
 
