@@ -1,5 +1,5 @@
 #ifndef NET_UTIL_H
-#define NET_UTIL_HB
+#define NET_UTIL_H
 
 #include <string>
 
