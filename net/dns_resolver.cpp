@@ -138,16 +138,19 @@ std::vector<std::string> yn0014::net::DNSResolver::parseDNSResMsg(uint8_t *msg, 
         - TTL        32  (TTL)
         - IP         32  (解決結果)
     */
-    memcpynum16(offset, msg);
-    if((offset & 0xc000) == 0) {
-        offset = 0;
-        while(msg[offset] != 0) ++ offset;
-    } else {
-        offset = 2;
+    std::vector<std::string> ipList;
+    for(; resp > 0; -- resp) {
+        memcpynum16(offset, msg);
+        if((offset & 0xc000) == 0) {
+            offset = 0;
+            while(msg[offset] != 0) ++ offset;
+        } else {
+            offset = 2;
+        }
+        msg += offset + 10;
+        ipList.emplace_back(yn0014::mystring::format("%d.%d.%d.%d", msg[0], msg[1], msg[2], msg[3]));
+        msg += 4;
     }
-    msg += offset + 10;
 
-    return std::vector<std::string>{
-        yn0014::mystring::format("%d.%d.%d.%d", msg[0], msg[1], msg[2], msg[3])
-    };
+    return ipList;
 }
