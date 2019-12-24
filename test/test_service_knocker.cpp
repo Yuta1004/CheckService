@@ -13,7 +13,7 @@ std::string getStatusMsg(int32_t stcode)
         return "40x Client Error";
     if(FAILED50x(stcode))
         return "50x Server Error";
-    return "Unknown Error;"
+    return "Unknown Error";
 }
 
 int main()
