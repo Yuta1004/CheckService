@@ -12,8 +12,8 @@ make:
 build: main.cpp
 	$(G++) $(OPTS) -o $(PRODNAME) $^ $(filter-out main.cpp test/%.cpp, $(SRCS))
 
-run: main
-	./main
+run: $(PRODNAME)
+	./$(PRODNAME)
 
 test:
 	$(call do_test, test_service_knocker)
