@@ -29,7 +29,11 @@ void yn0014::ServiceKnocker::knock()
 {
     yn0014::net::TCPConnector conn(hostIP);
     conn.sendMsg(
-        yn0014::mystring::format("GET %s HTTP/1.0\r\n\r\n", url->docpath.c_str())
+        yn0014::mystring::format(
+            "GET %s HTTP/1.0\r\nHost: %s\r\n\r\n",
+            url->docpath.c_str(),
+            url->host.c_str()
+        )
     );
     resp = yn0014::mystring::split((const char*)conn.getRecv(), "\n");
 }
