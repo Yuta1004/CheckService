@@ -52,6 +52,10 @@ bool yn0014::net::TCPConnector::startSSL()
     return true;
 }
 
+void yn0014::net::TCPConnector::closeConn(){
+    closeSock();
+}
+
 bool yn0014::net::TCPConnector::sendMsg(void *msg, size_t len)
 {
     int32_t result;
@@ -133,6 +137,7 @@ void yn0014::net::TCPConnector::closeSock()
         SSL_free(ssl);
         SSL_CTX_free(ctx);
         ERR_free_strings();
+        opt &= ~USESSL;
     }
     if(sock != 0)
         close(sock);
