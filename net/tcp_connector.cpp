@@ -54,7 +54,11 @@ bool yn0014::net::TCPConnector::startSSL()
 
 bool yn0014::net::TCPConnector::sendMsg(void *msg, size_t len)
 {
-    int32_t result = send(sock, msg, len, 0);
+    int32_t result;
+    if((opt & USESSL) == USESSL)
+        result = SSL_write(ssl, msg, len);
+    else
+        result = send(sock, msg, len, 0);
     return result == (int32_t)len;
 }
 
@@ -70,7 +74,11 @@ uint8_t* yn0014::net::TCPConnector::getRecv()
     int32_t result = 0;
     uint8_t *recvBuf = (uint8_t*)malloc(BUFLEN*sizeof(uint8_t));
 
-    result = recv(sock, recvBuf, BUFLEN, 0);
+    if((opt & USESSL) == USESSL)
+        result = SSL_read(ssl, recvBuf, BUFLEN);
+    else
+        result = recv(sock, recvBuf, BUFLEN, 0);
+
     if(result < 0)
         return NULL;
     recvBuf[result] = '\0';
