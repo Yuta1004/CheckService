@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include "service_knocker.hpp"
@@ -46,6 +47,18 @@ void outResultPretty(std::string url, bool result)
 
 int main(int argc, char* argv[])
 {
+    bool pretty = false;
+
+    // オプション
+    for(int32_t idx = 0; idx < argc; ++ idx) {
+        if(strncmp(argv[idx], "-p", 2) == 0) {
+            pretty = true;
+            for(int32_t rpidx = idx; rpidx < argc-1; ++ rpidx)
+                argv[rpidx] = argv[rpidx+1];
+            argv[argc--] = NULL;
+        }
+    }
+
     // 引数
     if(argc != 2) {
         cerr << "Usage : ./check_service <urlfile>" << endl;
@@ -62,7 +75,10 @@ int main(int argc, char* argv[])
     std::string url;
     while(getline(ifs, url)) {
         bool result = knock(url);
-        outResult(url, result);
+        if(pretty)
+            outResultPretty(url, result);
+        else
+            outResult(url, result);
     }
 
     exit(failedCnt > 0);
