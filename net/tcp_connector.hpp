@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <string>
+#include <openssl/ssl.h>
 
 #define BUFLEN 1000
 #define USESSL (1<<0)
@@ -25,6 +26,7 @@ namespace yn0014 {
         private:
             std::string ipAddr;
             int32_t sock, port, opt;
+            SSL *ssl;
             bool createSock();
             bool connectSock();
             bool connectSSLSock();

@@ -88,15 +88,15 @@ bool yn0014::net::TCPConnector::connectSSLSock()
         if(cond != 1)
             ERR_print_errors_fp(stderr);
         return cond == 1;
-    }
+    };
 
     // エラー読み込み & 初期化
     SSL_load_error_strings();
     SSL_library_init();
 
     // CTX生成 -> 接続
-    SSL_CTX ctx = SSL_CTX_new(SSL_v23_client_method());
-    ssl = ssl_new(ctx);
+    SSL_CTX *ctx = SSL_CTX_new(SSLv23_client_method());
+    ssl = SSL_new(ctx);
     return
         putIfError(SSL_set_fd(ssl, sock))
             &&
