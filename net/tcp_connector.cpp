@@ -105,5 +105,12 @@ bool yn0014::net::TCPConnector::connectSSLSock()
 
 void yn0014::net::TCPConnector::closeSock()
 {
-    if(sock != 0) close(sock);
+    if((opt & USESSL) == USESSL) {
+        SSL_shutdown(ssl);
+        SSL_free(ssl);
+        SSL_CTX_free(ctx);
+        ERR_free_strings();
+    }
+    if(sock != 0)
+        close(sock);
 }
