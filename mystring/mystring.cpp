@@ -4,6 +4,8 @@
 #include <cstdio>
 #include "mystring.hpp"
 
+#include <iostream>
+
 std::vector<std::string> yn0014::mystring::split(std::string src, std::string splitter)
 {
     // string -> const char *
@@ -29,7 +31,7 @@ std::vector<std::string> yn0014::mystring::split(std::string src, std::string sp
     };
 
     // split処理
-    for(int32_t idx = 0; idx < (int32_t)(csrc_len-cspl_len); ++ idx) {
+    for(int32_t idx = 0; idx < (int32_t)(csrc_len); ++ idx) {
         if(strncmp(csrc+idx, cspl, cspl_len) == 0) {
             add_str(csrc, old_idx, idx-old_idx);
             idx += cspl_len;
