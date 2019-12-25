@@ -25,7 +25,7 @@ test-once:
 	$(call do_test, test_$(TARGET))
 
 clean:
-	rm -rf main test_url_parser test_service_knocker test_dns_resolver
+	rm -rf check_server test_*
 
 define do_test
 	$(eval TARGET_FORM := $(subst $() ,,$1))
