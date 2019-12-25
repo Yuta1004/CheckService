@@ -9,7 +9,7 @@ make:
 	make run
 
 build: main.cpp
-	$(G++) $(OPTS) -o main $^
+	$(G++) $(OPTS) -o main $^ $(filter-out main.cpp test/%.cpp, $(SRCS))
 
 run: main
 	./main
