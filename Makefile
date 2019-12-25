@@ -3,7 +3,7 @@ OPTS = -Wall -std=c++17 --pedantic-errors -I/usr/local/opt/openssl/include -lssl
 SRCS = $(wildcard *.cpp */*.cpp)
 TARGET = empty
 
-PRODNAME = check_server
+PRODNAME = check_service
 ARGS =
 
 

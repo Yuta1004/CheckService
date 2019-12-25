@@ -1,5 +1,5 @@
 main
-check_server
+check_service
 test_service_knocker
 
 url_list.txt
