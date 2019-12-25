@@ -1,5 +1,5 @@
 G++ = g++
-OPTS = -Wall -std=c++17 --pedantic-errors
+OPTS = -Wall -std=c++17 --pedantic-errors -I/usr/local/opt/openssl/include -lssl -lcrypto
 SRCS = $(wildcard *.cpp */*.cpp)
 TARGET = empty
 
