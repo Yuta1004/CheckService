@@ -1,6 +1,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <cstdio>
+#include <cstring>
 #include "../mystring/mystring.hpp"
 #include "util.hpp"
 
@@ -20,6 +22,24 @@ bool yn0014::net::util::checkIPv4Format(std::string strIP)
             return false;
     }
     return true;
+}
+
+std::string yn0014::net::util::getRedirectURL(std::vector<std::string> resp)
+{
+    char *utmp = (char*)malloc(50);
+    std::vector<std::string> condStr{"Location: %s", "location: %s"};
+
+    for(auto line : resp) {
+        for(auto cond: condStr) {
+            sscanf(line.c_str(), cond.c_str(), utmp);
+            if(utmp[0] != 0)
+                break;
+        }
+        if(utmp[0] != 0 && line == "")
+            break;
+    }
+
+    return std::string(utmp);
 }
 
 yn0014::net::util::URLParser::URLParser(std::string url)
