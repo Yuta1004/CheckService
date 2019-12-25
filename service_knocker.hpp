@@ -6,10 +6,11 @@
 #include <vector>
 #include "net/util.hpp"
 
-#define error(x)     ((int32_t)(x)==0)
-#define success(x)   ((int32_t)(x)/100==2)
-#define failed40x(x) ((int32_t)(x)/100==4)
-#define failed50x(x) ((int32_t)(x)/100==5)
+#define error(x)        ((int32_t)(x)==0)
+#define success(x)      ((int32_t)(x)/100==2)
+#define redirect30x(x)  ((int32_t)(x)/100==3)
+#define failed40x(x)    ((int32_t)(x)/100==4)
+#define failed50x(x)    ((int32_t)(x)/100==5)
 
 namespace yn0014 {
 
