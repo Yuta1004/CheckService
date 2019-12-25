@@ -41,5 +41,7 @@ yn0014::net::util::URLParser::URLParser(std::string url)
     // <docpah>
     size_t pro_host_len = protocol.size() + host.size() + 3;
     docpath = url.replace(url.begin(), url.begin()+pro_host_len, "");
+    if(docpath == "")
+        docpath = "/";
 }
 
