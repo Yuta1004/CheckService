@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include "service_knocker.hpp"
+#include "net/util.hpp"
 
 #define convert_bool_to_ok(cond) ((cond) ? "OK" : "Failed")
 
@@ -13,9 +14,19 @@ int failedCnt = 0;
 
 bool knock(std::string url)
 {
+    // サービスアクセス
     yn0014::ServiceKnocker knocker(url);
     knocker.knock();
-    return success(knocker.getStatus());
+
+    // リダイレクト確認
+    int32_t result = knocker.getStatus();
+    if(redirect30x(result)) {
+        std::string newURL = yn0014::net::util::getRedirectURL(knocker.getResp());
+        cout << "redirect..." << endl;
+        cout << "   " << url << " -> " << newURL << endl;
+        return knock(newURL);
+    }
+    return result;
 }
 
 void outResult(std::string url, bool result)
