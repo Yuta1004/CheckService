@@ -37,6 +37,21 @@ yn0014::net::TCPConnector::~TCPConnector()
     closeSock();
 }
 
+bool yn0014::net::TCPConnector::startSSL()
+{
+    opt |= USESSL;
+    if(!sock) {
+        cerr << "Socket not initialized" << endl;
+        exit(1);
+    }
+
+    if(!connectSSLSock()) {
+        cerr << "Cannot start ssl connection" << endl;
+        return false;
+    }
+    return true;
+}
+
 bool yn0014::net::TCPConnector::sendMsg(void *msg, size_t len)
 {
     int32_t result = send(sock, msg, len, 0);
@@ -84,10 +99,10 @@ bool yn0014::net::TCPConnector::connectSock()
 
 bool yn0014::net::TCPConnector::connectSSLSock()
 {
-    auto putIfError = [](int32_t cond) {
-        if(cond != 1)
+    auto sslAssert = [](bool cond) {
+        if(!cond)
             ERR_print_errors_fp(stderr);
-        return cond == 1;
+        return cond;
     };
 
     // エラー読み込み & 初期化
@@ -98,9 +113,9 @@ bool yn0014::net::TCPConnector::connectSSLSock()
     ctx = SSL_CTX_new(SSLv23_client_method());
     ssl = SSL_new(ctx);
     return
-        putIfError(SSL_set_fd(ssl, sock))
+        sslAssert(SSL_set_fd(ssl, sock) != 0)
             &&
-        putIfError(SSL_connect(ssl));
+        sslAssert(SSL_connect(ssl) == 1);
 }
 
 void yn0014::net::TCPConnector::closeSock()

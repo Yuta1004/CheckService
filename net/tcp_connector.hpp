@@ -18,7 +18,7 @@ namespace yn0014 {
             TCPConnector(std::string ipAddr);
             TCPConnector(std::string ipAddr, int32_t port);
             ~TCPConnector();
-            void startSSL();
+            bool startSSL();
             bool sendMsg(void *msg, size_t len);
             bool sendMsg(std::string msg);
             uint8_t *getRecv();
