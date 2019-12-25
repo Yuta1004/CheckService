@@ -8,6 +8,8 @@
 #include <openssl/err.h>
 #include "tcp_connector.hpp"
 
+#define USESSL (1<<0)
+
 using std::cout;
 using std::cerr;
 using std::endl;

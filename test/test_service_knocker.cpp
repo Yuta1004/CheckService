@@ -7,11 +7,11 @@ using std::endl;
 
 std::string getStatusMsg(int32_t stcode)
 {
-    if(SUCCESS(stcode))
+    if(success(stcode))
         return "200 OK";
-    if(FAILED40x(stcode))
+    if(failed40x(stcode))
         return "40x Client Error";
-    if(FAILED50x(stcode))
+    if(failed50x(stcode))
         return "50x Server Error";
     return "Unknown Error";
 }

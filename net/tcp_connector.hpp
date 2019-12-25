@@ -6,7 +6,6 @@
 #include <openssl/ssl.h>
 
 #define BUFLEN 1000
-#define USESSL (1<<0)
 
 namespace yn0014 {
 

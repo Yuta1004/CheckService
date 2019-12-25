@@ -15,7 +15,7 @@ bool knock(std::string url)
 {
     yn0014::ServiceKnocker knocker(url);
     knocker.knock();
-    return SUCCESS(knocker.getStatus());
+    return success(knocker.getStatus());
 }
 
 void outResult(std::string url, bool result)
