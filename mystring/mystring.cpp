@@ -45,3 +45,12 @@ std::vector<std::string> yn0014::mystring::split(std::string src, std::string sp
     return ret_list;
 }
 
+std::string replace(std::string src, std::string target, std::string str)
+{
+    std::string::size_type pos = src.find(target);
+    while(pos < src.size()) {
+        src.replace(pos, target.size(), str);
+        pos = src.find(target, pos);
+    }
+    return src;
+}

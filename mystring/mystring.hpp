@@ -10,6 +10,8 @@ namespace yn0014 {
 
         std::vector<std::string> split(std::string src, std::string splitter);
 
+        std::string replace(std::string src, std::string target, std::string str);
+
         template <typename...Args>
         std::string format(const std::string &fmt, Args ... args)
         {
