@@ -2,7 +2,9 @@ G++ = g++
 OPTS = -Wall -std=c++17 --pedantic-errors -I/usr/local/opt/openssl/include -lssl -lcrypto
 SRCS = $(wildcard *.cpp */*.cpp)
 TARGET = empty
+
 PRODNAME = check_server
+ARGS =
 
 
 make:
@@ -13,7 +15,7 @@ build: main.cpp
 	$(G++) $(OPTS) -o $(PRODNAME) $^ $(filter-out main.cpp test/%.cpp, $(SRCS))
 
 run: $(PRODNAME)
-	./$(PRODNAME)
+	./$(PRODNAME) $(ARGS)
 
 test:
 	$(call do_test, test_service_knocker)
