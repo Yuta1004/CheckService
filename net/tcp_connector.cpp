@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
 #include "tcp_connector.hpp"
 
 using std::cout;
@@ -16,6 +18,7 @@ yn0014::net::TCPConnector::TCPConnector(std::string ipAddr, int32_t port)
 {
     this->ipAddr = ipAddr;
     this->port = port;
+    opt = 0;
 
     if(!createSock()) {
         cerr << "Cannot create socket" << endl;
@@ -77,6 +80,27 @@ bool yn0014::net::TCPConnector::connectSock()
 
     // 接続
     return connect(sock, (struct sockaddr *)&sc_addr, sizeof(sc_addr)) >= 0;
+}
+
+bool yn0014::net::TCPConnector::connectSSLSock()
+{
+    auto putIfError = [](int32_t cond) {
+        if(cond != 1)
+            ERR_print_errors_fp(stderr);
+        return cond == 1;
+    }
+
+    // エラー読み込み & 初期化
+    SSL_load_error_strings();
+    SSL_library_init();
+
+    // CTX生成 -> 接続
+    SSL_CTX ctx = SSL_CTX_new(SSL_v23_client_method());
+    ssl = ssl_new(ctx);
+    return
+        putIfError(SSL_set_fd(ssl, sock))
+            &&
+        putIfError(SSL_connect(ssl));
 }
 
 void yn0014::net::TCPConnector::closeSock()
