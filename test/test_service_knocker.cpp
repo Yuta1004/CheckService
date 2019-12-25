@@ -16,9 +16,9 @@ std::string getStatusMsg(int32_t stcode)
     return "Unknown Error";
 }
 
-int main()
+void knock(std::string url)
 {
-    yn0014::ServiceKnocker sknocker("http://www.yuge.ac.jp/subject/info");
+    yn0014::ServiceKnocker sknocker(url);
     sknocker.knock();
 
     std::string result = getStatusMsg(sknocker.getStatus());
@@ -28,4 +28,11 @@ int main()
     cout << "Response:" << endl;
     for(auto line : resp)
         cout << line << endl;
+    cout << endl;
+}
+
+int main()
+{
+    knock("http://www.yuge.ac.jp/subject/info");
+    knock("https://github.com/Yuta1004");
 }
