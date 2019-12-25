@@ -31,6 +31,11 @@ bool knock(std::string url)
 
 void outResult(std::string url, bool result)
 {
+    cout << "- " << url << " : " << (result ? "OK" : "NG") << endl;
+}
+
+void outResultPretty(std::string url, bool result)
+{
     if(result) {
         printf("- \033[1m\033[32mOK\033[0m : %s\n", url.c_str());
     } else {
