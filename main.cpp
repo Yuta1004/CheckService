@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include "service_knocker.hpp"
@@ -8,11 +9,23 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
+int failedCnt = 0;
+
 bool knock(std::string url)
 {
     yn0014::ServiceKnocker knocker(url);
     knocker.knock();
     return SUCCESS(knocker.getStatus());
+}
+
+void outResult(std::string url, bool result)
+{
+    if(result) {
+        printf("- \033[1m\033[32mOK\033[0m : %s\n", url.c_str());
+    } else {
+        printf("- \033[1m\033[31mFailed\033[0m : %s\n", url.c_str());
+        ++ failedCnt;
+    }
 }
 
 int main(int argc, char* argv[])
@@ -33,6 +46,8 @@ int main(int argc, char* argv[])
     std::string url;
     while(getline(ifs, url)) {
         bool result = knock(url);
-        cout << "- " << url << " : " << convert_bool_to_ok(result) << endl;
+        outResult(url, result);
     }
+
+    exit(failedCnt > 0);
 }
