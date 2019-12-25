@@ -27,6 +27,7 @@ namespace yn0014 {
             std::string ipAddr;
             int32_t sock, port, opt;
             SSL *ssl;
+            SSL_CTX *ctx;
             bool createSock();
             bool connectSock();
             bool connectSSLSock();

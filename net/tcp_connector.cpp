@@ -95,7 +95,7 @@ bool yn0014::net::TCPConnector::connectSSLSock()
     SSL_library_init();
 
     // CTX生成 -> 接続
-    SSL_CTX *ctx = SSL_CTX_new(SSLv23_client_method());
+    ctx = SSL_CTX_new(SSLv23_client_method());
     ssl = SSL_new(ctx);
     return
         putIfError(SSL_set_fd(ssl, sock))
