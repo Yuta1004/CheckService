@@ -34,7 +34,7 @@ bool knock(std::string url)
 
 void outResult(std::string url, bool result)
 {
-    cout << "- " << url << " : " << (result ? "OK" : "NG") << endl;
+    cout << "- " << url << " : " << (result ? "OK" : "Failed") << endl;
 }
 
 void outResultPretty(std::string url, bool result)
