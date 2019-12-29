@@ -119,7 +119,7 @@ bool yn0014::net::TCPConnector::connectSock()
 
     do {
         // レスポンス受信
-        tval.tv_sec = 5;
+        tval.tv_sec = TIMEOUT;
         tval.tv_usec = 0;
         FD_ZERO(&myset);
         FD_SET(sock, &myset);

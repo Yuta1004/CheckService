@@ -6,6 +6,7 @@
 #include <openssl/ssl.h>
 
 #define BUFLEN 1000
+#define TIMEOUT 5
 
 namespace yn0014 {
 
