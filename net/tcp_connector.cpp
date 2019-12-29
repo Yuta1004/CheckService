@@ -10,8 +10,8 @@
 #include "tcp_connector.hpp"
 
 #define USESSL (1<<0)
-#define error_with_exit(msg) { fprintf(stderr, msg); exit(1); }
-#define error_with_ret(msg) { fprintf(stderr, msg); return false; }
+#define error_with_exit(msg) { fprintf(stderr, msg); puts(""); exit(1); }
+#define error_with_ret(msg) { fprintf(stderr, msg); puts(""); return false; }
 
 using std::cout;
 using std::cerr;
