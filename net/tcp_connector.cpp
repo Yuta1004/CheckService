@@ -90,8 +90,6 @@ bool yn0014::net::TCPConnector::createSock()
 {
     // ソケット生成
     sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if(!setBlocking(true))
-        return false;
     return sock > 0;
 }
 
@@ -105,7 +103,45 @@ bool yn0014::net::TCPConnector::connectSock()
     sc_addr.sin_port = htons(port);
 
     // 接続
-    return connect(sock, (struct sockaddr *)&sc_addr, sizeof(sc_addr)) >= 0;
+    setBlocking(false);
+    if(connect(sock, (struct sockaddr *)&sc_addr, sizeof(sc_addr)) >= 0)
+        error_with_ret("Cannot connect to host");
+
+    // 接続成功確認
+    int32_t ret, val_opt;
+    socklen_t int_size = sizeof(int);
+    fd_set myset;
+    struct timeval tval;
+    if(errno != EINPROGRESS)
+        error_with_ret("Error in connection...");
+
+    do {
+        // レスポンス受信
+        tval.tv_sec = 5;
+        tval.tv_usec = 0;
+        FD_ZERO(&myset);
+        FD_SET(sock, &myset);
+        ret = select(sock+1, NULL, &myset, NULL, &tval);
+
+        // 受信 -> エラーチェック
+        if(ret > 0) {
+            if(getsockopt(sock, SOL_SOCKET, SO_ERROR, (void*)(&val_opt), &int_size) < 0)
+                error_with_ret("Error in getsockopt");
+            if(val_opt)
+                error_with_ret("Error in delayed connection...");
+            break;
+        }
+
+        // 接続エラー検出
+        if(ret < 0 && errno != EINTR)
+            error_with_ret("Error in connecting...");
+
+        // タイムアウト検出
+        error_with_ret("Connection TIMEOUT!!");
+    } while(1);
+
+    setBlocking(true);
+    return true;
 }
 
 bool yn0014::net::TCPConnector::connectSSLSock()
