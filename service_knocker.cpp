@@ -16,7 +16,6 @@ using std::endl;
 
 yn0014::ServiceKnocker::ServiceKnocker(std::string serviceURL)
 {
-    cout << serviceURL << endl;
     result = 0;
     yn0014::net::DNSResolver resolver;
     url = new yn0014::net::util::URLParser(serviceURL);
