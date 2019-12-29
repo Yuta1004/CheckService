@@ -10,6 +10,8 @@
 #include "tcp_connector.hpp"
 
 #define USESSL (1<<0)
+#define error_with_exit(msg) { fprintf(stderr, msg); exit(1); }
+#define error_with_ret(msg) { fprintf(stderr, msg); return false; }
 
 using std::cout;
 using std::cerr;
@@ -23,15 +25,11 @@ yn0014::net::TCPConnector::TCPConnector(std::string ipAddr, int32_t port)
     this->port = port;
     opt = 0;
 
-    if(!createSock()) {
-        cerr << "Cannot create socket" << endl;
-        exit(1);
-    }
+    if(!createSock())
+        error_with_exit("Cannot create socket");
 
-    if(!connectSock()) {
-        cerr << "Cannot connect to host" << endl;
-        exit(1);
-    }
+    if(!connectSock())
+        error_with_exit("Cannot connect to host");
 }
 
 
@@ -43,15 +41,11 @@ yn0014::net::TCPConnector::~TCPConnector()
 bool yn0014::net::TCPConnector::startSSL()
 {
     opt |= USESSL;
-    if(!sock) {
-        cerr << "Socket not initialized" << endl;
-        exit(1);
-    }
+    if(!sock)
+        error_with_exit("Socket not initialized");
 
-    if(!connectSSLSock()) {
-        cerr << "Cannot start ssl connection" << endl;
-        return false;
-    }
+    if(!connectSSLSock())
+        error_with_ret("Cannot start ssl connection");
     return true;
 }
 
@@ -152,11 +146,13 @@ bool yn0014::net::TCPConnector::setBlocking(bool enable_block)
 {
     int64_t args;
     if((args = fcntl(sock, F_GETFL, NULL)) < 0)
-        return false;
+        error_with_ret("Faild to get sock_args");
+
     if(enable_block)
         args &= ~(O_NONBLOCK);
     else
         args |= O_NONBLOCK;
+
     return (fcntl(sock, F_SETFL, args) >= 0);
 }
 
