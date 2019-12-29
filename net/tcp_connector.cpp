@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <fcntl.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include "tcp_connector.hpp"
@@ -95,6 +96,8 @@ bool yn0014::net::TCPConnector::createSock()
 {
     // ソケット生成
     sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if(!setBlocking(true))
+        return false;
     return sock > 0;
 }
 
@@ -144,3 +147,16 @@ void yn0014::net::TCPConnector::closeSock()
     if(sock != 0)
         close(sock);
 }
+
+bool yn0014::net::TCPConnector::setBlocking(bool enable_block)
+{
+    int64_t args;
+    if((args = fcntl(sock, F_GETFL, NULL)) < 0)
+        return false;
+    if(enable_block)
+        args &= ~(O_NONBLOCK);
+    else
+        args |= O_NONBLOCK;
+    return (fcntl(sock, F_SETFL, args) >= 0);
+}
+

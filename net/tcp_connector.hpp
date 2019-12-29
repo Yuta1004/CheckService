@@ -1,5 +1,5 @@
 #ifndef NETWORK_CONNECTOR_H
-#define NETWORK_CONNECTOR_h
+#define NETWORK_CONNECTOR_H
 
 #include <cstdint>
 #include <string>
@@ -32,6 +32,7 @@ namespace yn0014 {
             bool connectSock();
             bool connectSSLSock();
             void closeSock();
+            bool setBlocking(bool val);
 
         };
 
