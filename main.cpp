@@ -26,6 +26,8 @@ bool knock(std::string url)
         cout << "redirect..." << endl;
         cout << "   " << url << " -> " << newURL << endl;
         return knock(newURL);
+    } else if(error(result) || failed40x(result) || failed50x(result)) {
+        return false;
     }
     return result;
 }

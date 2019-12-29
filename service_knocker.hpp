@@ -6,7 +6,7 @@
 #include <vector>
 #include "net/util.hpp"
 
-#define error(x)        ((int32_t)(x)==0)
+#define error(x)        ((int32_t)(x)<=0)
 #define success(x)      ((int32_t)(x)/100==2)
 #define redirect30x(x)  ((int32_t)(x)/100==3)
 #define failed40x(x)    ((int32_t)(x)/100==4)
