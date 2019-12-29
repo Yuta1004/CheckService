@@ -20,11 +20,13 @@ int main()
     // 52.69.186.44 => github.com
 
     yn0014::net::TCPConnector tcpA("153.120.168.14");
+    tcpA.startConn();
     tcpA.sendMsg("GET / HTTP/1.0\r\n\r\n");
     outMsg(tcpA.getRecv());
     tcpA.closeConn();
 
     yn0014::net::TCPConnector tcpB("52.69.186.44", 443);
+    tcpB.startConn();
     tcpB.startSSL();
     tcpB.sendMsg("GET /Yuta1004 HTTP/1.0\r\nHost: github.com\r\n\r\n");
     outMsg(tcpB.getRecv());

@@ -27,15 +27,17 @@ yn0014::net::TCPConnector::TCPConnector(std::string ipAddr, int32_t port)
 
     if(!createSock())
         error_with_exit("Cannot create socket");
-
-    if(!connectSock())
-        error_with_exit("Cannot connect to host");
 }
 
 
 yn0014::net::TCPConnector::~TCPConnector()
 {
     closeSock();
+}
+
+bool yn0014::net::TCPConnector::startConn()
+{
+    return connectSock();
 }
 
 bool yn0014::net::TCPConnector::startSSL()

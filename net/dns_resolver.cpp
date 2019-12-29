@@ -51,8 +51,10 @@ std::vector<std::string> yn0014::net::DNSResolver::resolve(std::string hostURL)
     reqLen += 2;
 
     yn0014::net::TCPConnector conn(masterServerIP, 53);
+    conn.startConn();
     conn.sendMsg(reqMsg, reqLen);
     respMsg = conn.getRecv();
+    conn.closeConn();
 
     std::vector<std::string> result = parseDNSResMsg(respMsg, reqLen-14);   // QuestionSectionの長さだけ欲しいのでヘッダーサイズを引く
     free(reqMsg);

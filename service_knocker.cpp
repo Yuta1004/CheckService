@@ -31,9 +31,11 @@ void yn0014::ServiceKnocker::knock()
     yn0014::net::TCPConnector *conn;
     if(url->protocol == "https") {
         conn = new yn0014::net::TCPConnector(hostIP, 443);
+        conn->startConn();
         conn->startSSL();
     } else {
         conn = new yn0014::net::TCPConnector(hostIP);
+        conn->startConn();
     }
 
     // 送信->レスポンス受け取り
@@ -45,6 +47,7 @@ void yn0014::ServiceKnocker::knock()
         )
     );
     resp = yn0014::mystring::split((const char*)conn->getRecv(), "\n");
+    conn->closeConn();
     delete(conn);
 }
 
